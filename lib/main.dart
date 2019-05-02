@@ -17,7 +17,6 @@ class MyApp extends StatelessWidget {
 
    */
   Widget build(BuildContext context) {
-    final wordPair = WordPair.random();
     /*
     If the app is running, hot reload to update the running app.
     Each time you click hot reload, or save the project,
@@ -31,14 +30,26 @@ class MyApp extends StatelessWidget {
 //          The Scaffold widget, from the Material library, provides a default app bar, title,
 //          and a body property that holds the widget tree for the home screen. The widget subtree can be quite complex.
       home: Scaffold(
-        appBar: AppBar(
-          title: Text('Welcome to Flutter'),
-        ),
         body: Center(
-          child: Text(wordPair.runtimeType.toString() + ' - ' + wordPair.asPascalCase)
-
+          child: RandomWords(),
         ),
       ),
     );
   }
+}
+
+class RandomWordState extends State<RandomWords> {
+  // Note: Prefixing an identifier with an underscore enforces privacy in the Dart language.
+  final _suggestions = <WordPair>[];
+  final _biggerFont = const TextStyle(fontSize: 18.0);
+  @override
+  Widget build(BuildContext context) {
+    final wordPair = WordPair.random();
+    return Text(wordPair.asPascalCase);
+  }
+}
+
+class RandomWords extends StatefulWidget {
+  @override
+  RandomWordState createState() => RandomWordState();
 }
