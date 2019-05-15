@@ -27,6 +27,9 @@ class MyApp extends StatelessWidget {
      */
     return MaterialApp(
         title: 'Welcome to Flutter',
+        theme: ThemeData(
+          primaryColor: Colors.white,
+        ),
         /*
       The app you’ve run so far is in the debug mode which allows faster development
       (e.g., hot reload) at a big performance overhead. Therefore,
