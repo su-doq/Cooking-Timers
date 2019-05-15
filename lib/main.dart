@@ -27,13 +27,18 @@ class MyApp extends StatelessWidget {
      */
     return MaterialApp(
       title: 'Welcome to Flutter',
-//          The Scaffold widget, from the Material library, provides a default app bar, title,
-//          and a body property that holds the widget tree for the home screen. The widget subtree can be quite complex.
-      home: Scaffold(
-        body: Center(
-          child: RandomWords(),
-        ),
-      ),
+      /*
+      The app you’ve run so far is in the debug mode which allows faster development
+      (e.g., hot reload) at a big performance overhead. Therefore,
+      janky animations are expected in such mode. To see how the app performs in release,
+      try the following terminal command.
+
+          # cmd
+          flutter run --profile
+
+       */
+      home: RandomWords()
+
     );
   }
 }
