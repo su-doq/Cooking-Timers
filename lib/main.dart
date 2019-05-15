@@ -26,8 +26,8 @@ class MyApp extends StatelessWidget {
     or when toggling the Platform in Flutter Inspector.
      */
     return MaterialApp(
-      title: 'Welcome to Flutter',
-      /*
+        title: 'Welcome to Flutter',
+        /*
       The app you’ve run so far is in the debug mode which allows faster development
       (e.g., hot reload) at a big performance overhead. Therefore,
       janky animations are expected in such mode. To see how the app performs in release,
@@ -37,9 +37,7 @@ class MyApp extends StatelessWidget {
           flutter run --profile
 
        */
-      home: RandomWords()
-
-    );
+        home: RandomWords());
   }
 }
 
@@ -48,10 +46,30 @@ class RandomWordState extends State<RandomWords> {
   final _suggestions = <WordPair>[];
   final _biggerFont = const TextStyle(fontSize: 18.0);
   final _saved = Set<WordPair>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text('aaaaaa')), body: _buildSuggestions());
+        appBar: AppBar(
+          title: Text('aaaaaa'),
+          actions: <Widget>[
+            IconButton(icon: Icon(Icons.list), onPressed: _pushSaved)
+          ],
+        ),
+        body: _buildSuggestions());//
+  }
+
+  void _pushSaved() {
+    Navigator.of(context).push(MaterialPageRoute<void>(
+      builder: (BuildContext context) {
+        final Iterable<ListTile> tiles = _saved.map((WordPair pair) {
+          return ListTile(title: Text(pair.asPascalCase, style: _biggerFont));
+        });
+
+        final List<Widget> divided =
+            ListTile.divideTiles(context: context, tiles: tiles).toList();
+      },
+    ));
   }
 
   Widget _buildSuggestions() {
@@ -72,13 +90,16 @@ class RandomWordState extends State<RandomWords> {
     final bool alreadySaved = _saved.contains(pair);
     return ListTile(
       title: Text(pair.asPascalCase, style: _biggerFont),
-      trailing: Icon(
-        alreadySaved ? Icons.favorite : Icons.favorite_border,
-        color: alreadySaved ? Colors.red : null
-      ),
+      trailing: Icon(alreadySaved ? Icons.favorite : Icons.favorite_border,
+          color: alreadySaved ? Colors.red : null),
       onTap: () {
+        /*
+        Tip: In Flutter's reactive style framework, calling setState() triggers a call to the build() method
+         for the State object, resulting in an update to the UI.
+
+         */
         setState(() {
-          if(alreadySaved){
+          if (alreadySaved) {
             _saved.remove(pair);
           } else {
             _saved.add(pair);
