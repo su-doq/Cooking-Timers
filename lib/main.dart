@@ -56,7 +56,7 @@ class RandomWordState extends State<RandomWords> {
             IconButton(icon: Icon(Icons.list), onPressed: _pushSaved)
           ],
         ),
-        body: _buildSuggestions());//
+        body: _buildSuggestions()); //
   }
 
   void _pushSaved() {
@@ -68,6 +68,11 @@ class RandomWordState extends State<RandomWords> {
 
         final List<Widget> divided =
             ListTile.divideTiles(context: context, tiles: tiles).toList();
+
+        return Scaffold(
+          appBar: AppBar(title: Text("APP BAR!")),
+          body: ListView(children: divided),
+        );
       },
     ));
   }
